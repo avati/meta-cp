@@ -18,7 +18,7 @@ function header()
 #!/bin/bash -e
 
 
-function create_file()
+function F()
 {
     local file="\$1";
     local acc="\$2";
@@ -33,7 +33,7 @@ function create_file()
 }
 
 
-function create_dir()
+function D()
 {
     local file="\$1";
     local acc="\$2";
@@ -45,7 +45,7 @@ function create_dir()
 }
 
 
-function create_symlink()
+function S()
 {
     local file="\$1";
     local link="\$2";
@@ -57,7 +57,7 @@ function create_symlink()
 }
 
 
-function create_fifo()
+function F()
 {
     local file="\$1";
     local acc="\$2";
@@ -69,7 +69,7 @@ function create_fifo()
 }
 
 
-function create_block()
+function B()
 {
     local file="\$1";
     local acc="\$2";
@@ -83,7 +83,7 @@ function create_block()
 }
 
 
-function create_block()
+function C()
 {
     local file="\$1";
     local acc="\$2";
@@ -141,33 +141,33 @@ function body()
 	case "$type" in
 	    'regular file'|'regular empty file')
 		cat >> "$dst" <<EOF
-create_file "$line" "$acc" "$size" "$uid" "$gid";
+F "$line" $acc $size $uid $gid
 EOF
 		;;
 	    'directory')
 		cat >> "$dst" <<EOF
-create_dir "$line" "$acc" "$uid" "$gid";
+D "$line" $acc $uid $gid
 EOF
 		;;
 	    'symbolic link')
 		local link=$(readlink "$line");
 		cat >> "$dst" <<EOF
-create_symlink "$line" "$link" "$uid" "$gid";
+S "$line" $link $uid $gid
 EOF
 		;;
 	    'fifo')
 		cat >> "$dst" <<EOF
-create_fifo "$line" "$acc" "$uid" "$gid";
+F "$line" $acc $uid $gid
 EOF
 		;;
 	    'block special file')
 		cat >> "$dst" <<EOF
-create_block "$line" "$acc" "$maj" "$min" "$uid" "$gid";
+B "$line" $acc $maj $min $uid $gid
 EOF
 		;;
 	    'character special file')
 		cat >> "$dst" <<EOF
-create_char "$line" "$acc" "$maj" "$min" "$uid" "$gid";
+C "$line" $acc $maj $min $uid $gid
 EOF
 		;;
 	    *)
