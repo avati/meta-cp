@@ -9,8 +9,7 @@ Usage
 	src-sh# ls -l /source/directory
 	<... stuff ...>
 
-	src-sh# meta-cp.sh /source/directory capture.sh
-	src-sh# gzip -9 capture.sh
+	src-sh# meta-cp.sh /source/directory | gzip -9c - > capture.sh.gz
 
 	<... transport capture.sh.gz to destination machine ...>
 
