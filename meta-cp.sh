@@ -57,7 +57,7 @@ function S()
 }
 
 
-function F()
+function P()
 {
     local file="\$1";
     local acc="\$2";
@@ -157,7 +157,7 @@ EOF
 		;;
 	    'fifo')
 		cat >> "$dst" <<EOF
-F "$line" $acc $uid $gid
+P "$line" $acc $uid $gid
 EOF
 		;;
 	    'block special file')
